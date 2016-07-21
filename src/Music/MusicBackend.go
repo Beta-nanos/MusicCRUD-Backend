@@ -2,9 +2,9 @@ package Music
 
 import (
 	"fmt"
-	"sqlx"
+	_ "github.com/jmoiron/sqlx" //check alias
 	"database/sql"
-	_ "github.com/go-sql-driver/mysql"
+	_ "github.com/go-sql-driver/mysql" //aliased so we don't depend on driver's functions
 )
 
 type User struct {
