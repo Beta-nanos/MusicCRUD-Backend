@@ -19,7 +19,7 @@ func init(){
 	}
 }
 
-func InsertAlbum(title string, price float, rating int) {
+func InsertAlbum(title string, price float32, rating int) {
 	insertQuery := "INSERT INTO Albums VALUES (?, ?, ?)"
 
 	db.Exec(insertQuery, title, price, rating)
@@ -36,7 +36,7 @@ func SelectAlbum(albumId int) (album *Album){
 	}
 }
 
-func UpdateAlbum(albumId int, title string, price float, rating int) bool {
+func UpdateAlbum(albumId int, title string, price float32, rating int) bool {
 	updateQuery := "UPDATE Albums SET title = ?, price = ?, rating = ? WHERE album_id = ?"
 	
 	_, err := db.Exec(updateQuery, title, price, rating, albumId)
