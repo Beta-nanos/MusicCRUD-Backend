@@ -3,6 +3,6 @@ package Music
 type Album struct {
 	AlbumId int
 	Title string
-	Price float
+	Price float32
 	Rating int
 }
