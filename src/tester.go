@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"Music"
+	"github.com/kataras/iris"
 )
 
 /*type Album struct {
@@ -25,10 +26,13 @@ func main() {
 	//album := Music.SelectAlbum(2);
 	//fmt.Println(album.Title);
 
-	if Music.DeleteAlbum(5) {
+	/*if Music.DeleteAlbum(5) {
 		fmt.Println("Soda Stereo borrado.")
 	}else {
 		fmt.Println("Didn't even exist")
-	}
+	}*/
 	//dbOps.Test = 0;
+	iris.API("/Albums", Music.AlbumAPI{})
+	iris.Listen(":8080")
+	fmt.Println("Server mounted")
 }
