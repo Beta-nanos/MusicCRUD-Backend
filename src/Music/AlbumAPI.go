@@ -35,6 +35,17 @@ func (albumHandler AlbumAPI) Put() {
 	println("Put from /Albums")
 }
 
+
+//Put /Albums/:params
+func (albumHandler AlbumAPI) Put(title, price, rating string) {
+	fPrice, _ := strconv.ParseFloat(price, 32)
+	iRating, _ := strconv.Atoi(rating)
+	
+	InsertAlbum(title, float32(fPrice), iRating)
+
+	println("Put from /Albums/params")	
+}
+
 //POST /Albums/:params
 func (albumHandler AlbumAPI) PostBy(id string) {
 	albumId, _ := strconv.Atoi(id)
