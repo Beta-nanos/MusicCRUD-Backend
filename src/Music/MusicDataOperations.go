@@ -34,6 +34,26 @@ func InsertAlbum(title string, price float32, rating int) {
 	tx.Commit();
 }
 
+func SelectAll() ( []Album){
+	selectQuery := "SELECT * FROM Albums"
+
+	rows, err := db.Queryx(selectQuery)
+	
+	if err != nil {
+		return nil
+	}
+
+	albums := make([]Album, 0, 2)
+
+	for rows.Next() {
+		var album Album
+		err = rows.StructScan(&album)
+		albums = append(albums, album)
+	}
+
+	return albums
+}
+
 func SelectAlbum(albumId int) (album Album){
 	selectQuery := "SELECT title, price, rating FROM Albums WHERE album_id = ?"
 

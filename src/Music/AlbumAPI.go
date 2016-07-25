@@ -1,9 +1,7 @@
 package Music
 
 import (
-	"bytes"
 	"strconv"
-	"encoding/binary"
 	"github.com/kataras/iris"
 )
 
@@ -20,6 +18,13 @@ func (albumHandler AlbumAPI) GetBy(id string){
 	albumHandler.JSON(iris.StatusOK, album)
 }
 
+//GET all
+func (albumHandler AlbumAPI) Get(){
+	albums := SelectAll()
+	albumHandler.JSON(iris.StatusOK, albums)
+}
+
+/*
 //PUT /Albums
 func (albumHandler AlbumAPI) Put() {
 	title := albumHandler.FormValue("title")
@@ -33,7 +38,7 @@ func (albumHandler AlbumAPI) Put() {
 
 	println(string(title))
 	println("Put from /Albums")
-}
+}*/
 
 
 //Put /Albums/:params
