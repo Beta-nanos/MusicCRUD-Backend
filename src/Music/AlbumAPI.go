@@ -11,30 +11,6 @@ type AlbumAPI struct {
 	*iris.Context
 }
 
-func byteConverterToFloat(data []byte) float32{
-	var number float32
-	buf := bytes.NewReader(data)
-	err := binary.Read(buf, binary.LittleEndian, &number)
-
-	if err != nil {
-		return 0
-	}
-
-	return number
-}
-
-func byteConverterToInt(data []byte) int{
-	var number int
-	buf := bytes.NewReader(data)
-	err := binary.Read(buf, binary.LittleEndian, &number)
-
-	if err != nil {
-		return 0
-	}
-
-	return number
-}
-
 //GET /:parameter id
 func (albumHandler AlbumAPI) GetBy(id string){
 	albumId, _ := strconv.Atoi(id)
@@ -47,10 +23,13 @@ func (albumHandler AlbumAPI) GetBy(id string){
 //PUT /Albums
 func (albumHandler AlbumAPI) Put() {
 	title := albumHandler.FormValue("title")
-	price := albumHandler.FormValue("price")
-	rating := albumHandler.FormValue("rating")
+	price := albumHandler.FormValueString("price")
+	rating := albumHandler.FormValueString("rating")
 	
-	InsertAlbum(string(title), byteConverterToFloat(price), byteConverterToInt(rating))
+	fPrice, _ := strconv.ParseFloat(price, 32)
+	iRating, _ := strconv.Atoi(rating)
+
+	InsertAlbum(string(title), float32(fPrice), iRating)
 
 	println(string(title))
 	println("Put from /Albums")
@@ -60,10 +39,13 @@ func (albumHandler AlbumAPI) Put() {
 func (albumHandler AlbumAPI) PostBy(id string) {
 	albumId, _ := strconv.Atoi(id)
 	title := albumHandler.FormValue("title")
-	price := albumHandler.FormValue("price")
-	rating := albumHandler.FormValue("rating")
-	
-	UpdateAlbum(albumId, string(title), byteConverterToFloat(price), byteConverterToInt(rating))
+	price := albumHandler.FormValueString("price")
+	rating := albumHandler.FormValueString("rating")
+		
+	fPrice, _ := strconv.ParseFloat(price, 32)
+	iRating, _ := strconv.Atoi(rating)
+
+	UpdateAlbum(albumId, string(title), float32(fPrice), iRating)
 	
 	println(string(title))
 	println("Post from /Albums/" + id)

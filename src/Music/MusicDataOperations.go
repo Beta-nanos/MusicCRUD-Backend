@@ -27,7 +27,7 @@ func NewMusicDataOperations() *MusicDataOperations{
 }
 
 func InsertAlbum(title string, price float32, rating int) {
-	insertQuery := "INSERT INTO Albums VALUES (?, ?, ?)"
+	insertQuery := "INSERT INTO Albums (title, price, rating) VALUES (?, ?, ?)"
 
 	tx := db.MustBegin()
 	tx.MustExec(insertQuery, title, price, rating)
