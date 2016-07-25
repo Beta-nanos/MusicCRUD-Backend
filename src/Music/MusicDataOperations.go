@@ -38,6 +38,7 @@ func SelectAlbum(albumId int) (album Album){
 	selectQuery := "SELECT title, price, rating FROM Albums WHERE album_id = ?"
 
 	err := db.QueryRowx(selectQuery, albumId).StructScan(&album)
+	album.AlbumId = albumId
 	
 	if err != nil {
 		fmt.Println(err)
