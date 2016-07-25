@@ -12,7 +12,7 @@ type AlbumAPI struct {
 //GET /:parameter id
 func (albumHandler AlbumAPI) GetBy(id string){
 	albumId, _ := strconv.Atoi(id)
-	albumHandler.Write("Get from /Albums/%s", albumId)
+	albumHandler.Write("Get from /Albums/%s", id)
 	/**
 	TO-DO:
 		Call to SelectAlbum (MusicDataOps)		
@@ -24,10 +24,12 @@ func (albumHandler AlbumAPI) Put() {
 	title := albumHandler.FormValue("title")
 	price := albumHandler.FormValue("price")
 	rating := albumHandler.FormValue("rating")
-	/**
-	TO-DO:
-		Call to InsertAlbum (MusicDataOps)
-	**/
+	
+	priceConverted, _ := strconv.ParseFloat(price, 32)
+	ratingConverted, _ := strconv.Atoi(rating)
+	
+	Music.InsertAlbum(title, priceConverted, ratingConverted)
+
 	println(string(name))
 	println("Put from /Albums")
 }
@@ -39,10 +41,11 @@ func (albumHandler AlbumAPI) PostBy(id string) {
 	price := albumHandler.FormValue("price")
 	rating := albumHandler.FormValue("rating")
 
-	/**
-	TO-DO:
-		Call to UpdateAlbum (MusicDataOps)
-	**/
+	priceConverted, _ := strconv.ParseFloat(price, 32)
+	ratingConverted, _ := strconv.Atoi(rating)
+	
+	Music.UpdateAlbum(albumId, title, priceConverted, ratingConverted)
+	
 	println(string(title))
 	println("Post from /Albums/" + id)
 }
@@ -50,9 +53,8 @@ func (albumHandler AlbumAPI) PostBy(id string) {
 //DELETE /Albums/:paramId
 func (albumHandler AlbumAPI) DeleteBy(id string){
 	albumId, _ := strconv.Atoi(id)
-	/**
-	TO-DO:
-		Call to DeleteAlbum (MusicDataOps)
-	**/
+	
+	Music.DeleteAlbum(albumId)
+
 	println("Delete from /" + id)
 }
