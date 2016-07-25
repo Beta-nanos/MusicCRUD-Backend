@@ -1,10 +1,9 @@
 package Music
 
 import (
-	"bytes"
 	"strconv"
-	"encoding/binary"
 	"github.com/kataras/iris"
+	"strings"
 )
 
 type AlbumAPI struct {
@@ -21,19 +20,20 @@ func (albumHandler AlbumAPI) GetBy(id string){
 }
 
 //PUT /Albums
-func (albumHandler AlbumAPI) Put() {
-	title := albumHandler.FormValue("title")
-	price := albumHandler.FormValueString("price")
-	rating := albumHandler.FormValueString("rating")
+func (albumHandler AlbumAPI) PutBy(title string) {
+	comando := strings.Split(title, "&")
+	//price := albumHandler.FormValueString(comando[1])
+	//rating := albumHandler.FormValueString(comando[2])
 	
-	fPrice, _ := strconv.ParseFloat(price, 32)
-	iRating, _ := strconv.Atoi(rating)
+	fPrice, _ := strconv.ParseFloat(comando[1], 32)
+	iRating, _ := strconv.Atoi(comando[2])
 
-	InsertAlbum(string(title), float32(fPrice), iRating)
+	InsertAlbum(comando[0], float32(fPrice), iRating)
 
 	println(string(title))
-	println("Put from /Albums")
+	println("Put from /Albums"+comando[1])
 }
+
 
 //POST /Albums/:params
 func (albumHandler AlbumAPI) PostBy(id string) {
