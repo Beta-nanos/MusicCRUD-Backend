@@ -50,6 +50,9 @@ func (albumHandler AlbumAPI) Put() {
 	price := albumHandler.FormValue("price")
 	rating := albumHandler.FormValue("rating")
 	
+	println(price)
+	println(rating)
+
 	InsertAlbum(string(title), byteConverterToFloat(price), byteConverterToInt(rating))
 
 	println(string(title))
