@@ -13,7 +13,7 @@ type MusicDataOperations struct{
 }
 
 func init(){
-	db = sqlx.MustConnect("mysql", "root:admin@tcp(localhost:3306)/Spa")
+	db = sqlx.MustConnect("mysql", "root:3008@tcp(localhost:3306)/Spa")
 	
 	err := db.Ping()
 

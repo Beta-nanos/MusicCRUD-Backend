@@ -33,6 +33,6 @@ func main() {
 	}*/
 	//dbOps.Test = 0;
 	iris.API("/Albums", Music.AlbumAPI{})
-	iris.Listen(":8080")
+	iris.Listen("localhost:7000")
 	fmt.Println("Server mounted")
 }
